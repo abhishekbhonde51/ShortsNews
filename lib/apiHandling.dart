@@ -50,26 +50,47 @@ class _NewsAppState extends State<NewsApp> {
           var author = article['author'] ?? 'Anonymous';
           var title = article['title'] ?? 'No title';
           var description = article['description'] ?? 'No description';
-          var imageUrl = article['urlToImage'];
-          var publishedDate = article['publishedAt'];
-        
+          var imageUrl = article['urlToImage'] ?? 'Url not found';
+          var publishedDate = article['publishedAt'] ?? 'unknown';
 
           return Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.blue[50],
+            ),
             child: Column(
               children: [
-                Text(author),
+                Text(
+                  title,
+                  style: GoogleFonts.quicksand(
+                      fontSize: 20,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w600),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    "- $author",
+                    style: GoogleFonts.quicksand(
+                        fontSize: 15,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
                 Text(description),
-                Text(imageUrl),
+                Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                ),
                 Text(publishedDate)
               ],
-              
             ),
           );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          newsDetails();
+          newsDetails;
         },
       ),
     );
