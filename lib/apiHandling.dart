@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import "package:http/http.dart" as http;
 
@@ -17,7 +16,7 @@ class _NewsAppState extends State<NewsApp> {
   void newsDetails() async {
     try {
       Uri url = Uri.parse(
-          'https://newsapi.org/v2/everything?q=tesla&from=2024-04-24&sortBy=publishedAt&apiKey=c6f761505a47457eac563f53842e0642');
+          'https://newsapi.org/v2/everything?q=tesla&from=2024-04-25&sortBy=publishedAt&apiKey=1f360acfe18046128948d80b4aa3f9f0');
       http.Response response = await http.get(url);
       log(response.body);
 
@@ -38,7 +37,9 @@ class _NewsAppState extends State<NewsApp> {
         title: Text(
           "ShortsNews",
           style: GoogleFonts.quicksand(
-              fontSize: 25, color: Colors.orange, fontWeight: FontWeight.bold),
+              fontSize: 25,
+              color: const Color.fromARGB(255, 0, 1, 10),
+              fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: Colors.blue,
@@ -59,6 +60,7 @@ class _NewsAppState extends State<NewsApp> {
               color: Colors.blue[50],
             ),
             child: Column(
+              
               children: [
                 Text(
                   title,
@@ -77,12 +79,38 @@ class _NewsAppState extends State<NewsApp> {
                         fontWeight: FontWeight.w600),
                   ),
                 ),
-                Text(description),
-                Image.network(
-                  imageUrl,
-                  fit: BoxFit.cover,
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    description,
+                    style: GoogleFonts.quicksand(
+                        fontSize: 15,
+                        color: const Color.fromARGB(255, 58, 35, 35),
+                        fontWeight: FontWeight.w300),
+                  ),
                 ),
-                Text(publishedDate)
+                Container(
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  child: Image.network(
+                    imageUrl,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    publishedDate,
+                    style: GoogleFonts.quicksand(
+                        fontSize: 15,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w600),
+                  ),
+                ),
+                Container(
+                  height: 1,
+                  color: Colors.black,
+                )
               ],
             ),
           );
@@ -90,7 +118,7 @@ class _NewsAppState extends State<NewsApp> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          newsDetails;
+          newsDetails();
         },
       ),
     );
